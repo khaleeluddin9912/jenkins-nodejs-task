@@ -1,33 +1,5 @@
-name: Node.js CI/CD Pipeline
+- name: Check running Docker containers
+run: docker ps
 
-on:
-  push:
-    branches: [main]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run build (if any)
-      run: npm run build || echo "No build script"
-
-    - name: Run tests (if any)
-      run: npm test || echo "No test script"
-
-    - name: Build Docker image
-      run: docker build -t nodejs-demo-app .
-
-    - name: Run Docker container
-      run: docker run -d -p 3000:3000 nodejs-demo-app
+- name: Show Docker container logs
+run: docker logs $(docker ps -q)
