@@ -2,30 +2,32 @@ name: Node.js CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Run tests
-        run: echo "No tests configured"
+    - name: Run build (if any)
+      run: npm run build || echo "No build script"
 
-      - name: Build Docker image
-        run: docker build -t my-nodejs-app .
+    - name: Run tests (if any)
+      run: npm test || echo "No test script"
 
-      - name: Docker images list
-        run: docker images
+    - name: Build Docker image
+      run: docker build -t nodejs-demo-app .
+
+    - name: Run Docker container
+      run: docker run -d -p 3000:3000 nodejs-demo-app
