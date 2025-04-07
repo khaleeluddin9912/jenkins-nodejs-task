@@ -1,5 +1,40 @@
-- name: Check running Docker containers
-run: docker ps
+name: Node.js CI/CD Pipeline
 
-- name: Show Docker container logs
-run: docker logs $(docker ps -q)
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build Docker image
+        run: docker build -t nodejs-app .
+
+      - name: Run Docker container
+        run: docker run -d -p 3000:3000 --name nodejs-container nodejs-app
+
+      - name: Show Docker container logs
+        run: |
+          CONTAINER_ID=$(docker ps -aq)
+          if [ -n "$CONTAINER_ID" ]; then
+            docker logs $CONTAINER_ID
+          else
+            echo "No running containers to show logs for."
+          fi
