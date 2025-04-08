@@ -5,29 +5,14 @@ pipeline {
         }
     }
     stages {
-        stage('Print Node & NPM Versions') {
+        stage('Install') {
             steps {
-                sh 'node -v || echo Node not installed'
-                sh 'npm -v || echo NPM not installed'
+                sh 'npm install'
             }
         }
-
-        stage('Install Dependencies') {
+        stage('Run') {
             steps {
-                sh 'npm install || echo npm install failed'
-            }
-        }
-
-        stage('Build App') {
-            steps {
-                sh 'npm run build || echo no build script found'
-            }
-        }
-
-        stage('Docker Build & Run') {
-            // This step needs Docker in Docker setup, which is more advanced.
-            steps {
-                echo 'Skipping Docker build in this stage because Docker is not available inside node:18 image by default.'
+                sh 'npm start'
             }
         }
     }
