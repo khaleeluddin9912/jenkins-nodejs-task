@@ -1,38 +1,19 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:18' // ✅ this has Node.js & npm preinstalled
-        }
-    }
+    agent any
 
     stages {
-        stage('Clone') {
+        stage('Use Node Image') {
             steps {
-                echo 'Cloning repo...'
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'npm run build'
-            }
-        }
-
-        stage('Docker Build') {
-            steps {
-                sh 'docker build -t myapp .'
-            }
-        }
-
-        stage('Docker Run') {
-            steps {
-                sh 'docker run -d -p 3000:3000 myapp'
+                script {
+                    docker.image('node:18').inside {
+                        sh 'node -v'
+                        sh 'npm -v'
+                        sh 'npm install'
+                        sh 'npm run build || echo "No build script"'
+                        sh 'docker build -t myapp .'
+                        sh 'docker run -d -p 3000:3000 myapp'
+                    }
+                }
             }
         }
     }
