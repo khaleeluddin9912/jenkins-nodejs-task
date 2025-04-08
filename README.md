@@ -1,83 +1,43 @@
+# Task 2 - Jenkins CI/CD Pipeline with Docker and Node.js
 
-
-# Node.js CI/CD Demo with GitHub Actions & Docker 🐳🚀
-
-This is a simple Node.js application that demonstrates a full CI/CD pipeline using GitHub Actions and Docker.
-
-- Node.js
-- Express.js
-- Docker
-- GitHub Actions (CI/CD)
-
-## 🛠️ Setup Instructions (Local)
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/khaleeluddin9912/-nodejs-demo-app.git
-cd nodejs-cicd-demo
-```
-
-### 2. Install dependencies
-
-```bash
-npm install
-```
-
-### 3. Run the app
-
-```bash
-npm start
-```
-
-App will be running at:  
-**[http://localhost:3000](http://localhost:3000)**
-
-## 🐳 Docker Setup
-
-### 1. Build the Docker image
-
-```bash
-docker build -t nodejs-cicd-demo .
-```
-
-### 2. Run the Docker container
-
-```bash
-docker run -p 3000:3000 nodejs-cicd-demo
-```
-
-App will be accessible at:  
-**[http://localhost:3000](http://localhost:3000)**
-
-## ⚙️ CI/CD with GitHub Actions
-
-Every time you push code to GitHub:
-- GitHub Actions will automatically build your Docker image
-- Install dependencies
-- Run the app inside a container
-
-You can find the workflow file at:  
-`.github/workflows/ci-cd.yml`
+## ✅ Objective
+The goal of this task was to set up a basic **CI/CD pipeline using Jenkins** and **Docker** to automate the build and deployment process of a **Node.js** application.
 
 ---
 
-## 📷 Screenshots
+## ⚙️ What I Did
 
-| Localhost Output | GitHub Actions |
-|------------------|----------------|
-| ![Localhost](./screenshots/localhost.png) | ![GitHub Actions](./screenshots/github-actions.png) |
+1. **Created a simple Node.js application** that displays a message `Hello from CI/CD Pipeline!` on port `3000`.
+2. **Dockerized the application** by writing a Dockerfile to containerize the app.
+3. **Pulled Jenkins using Docker** and accessed it on `http://localhost:8080`.
+4. Installed required Jenkins plugins: Git, Docker, Pipeline, and Blue Ocean.
+5. Created a **Jenkins Pipeline** project in Jenkins.
+6. Wrote a `Jenkinsfile` that:
+   - Pulls the Node.js app from GitHub
+   - Builds the Docker image
+   - Runs a container from the image
+7. Verified the deployed app runs on `http://localhost:3000`.
 
 ---
 
-## 📤 Author
+## 📁 Files Included
 
-**Mohammed Khaleel Uddin**  
-LinkedIn www.linkedin.com/in/mohammed-khaleel-uddin-9634012a0 | GitHub https://github.com/khaleeluddin9912
+- `app.js` – Main Node.js app
+- `Dockerfile` – For containerizing the app
+- `Jenkinsfile` – Jenkins pipeline script
+- `package.json` – Node.js dependencies
+- `screenshots/` – Task proof screenshots
+- `README.md` – This file
 
 ---
 
-> 🚀 “Automate all the things!” – Great work finishing the CI/CD task!
-=======
-# jenkins-nodejs-task
->>>>>>> 847f81bc72dacc475769ed30b6b2d01164ca4eef
+## 🔗 Output
+The app was successfully deployed and visible at:  
+`http://localhost:3000` → `Hello from CI/CD Pipeline!`
+
+---
+
+## 👤 Author  
+**Mohammed Khaleel Uddin**
+
+📅 **Date:** April 8, 2025
